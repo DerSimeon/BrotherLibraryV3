@@ -1,5 +1,6 @@
 package lol.simeon.bl3;
 
+import java.io.IOException;
 import java.util.Arrays;
 import javax.usb.UsbException;
 
@@ -16,8 +17,8 @@ public class BPrinter {
     this.usbConnector = new USBConnector();
     try {
       this.usbConnector.connect();
-    } catch (UsbException e) {
-      throw new RuntimeException(e);
+    } catch (UsbException | IOException e) {
+      e.printStackTrace();
     }
   }
 
