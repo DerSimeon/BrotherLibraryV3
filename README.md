@@ -24,3 +24,9 @@
 * Use homebrew to install libusb:
   * `brew install libusb`
 * NOTE: If you encounter an error saying you are missing a native "darwin-aarch64" Library, your Laptop is incompatible.
+
+# Development
+
+* In order to work with this Library, you need to add the following information to your build.gradle.kts:
+  * `repositories { maven("https://repo.simeon.lol/snapshots") }`
+  * `dependencies { implementation("lol.simeon:BrotherLibV3:1.0-SNAPSHOT") }`
