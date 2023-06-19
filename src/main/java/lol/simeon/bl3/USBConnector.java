@@ -21,14 +21,14 @@ public class USBConnector {
 
   public void connect() throws UsbException {
     UsbDevice device = discover();
-    if(device == null) {
+    if (device == null) {
       throw new RuntimeException("No printer found");
     }
 
     UsbInterface usbInterface = device.getActiveUsbConfiguration().getUsbInterface((byte) 0);
-    if(!usbInterface.isClaimed()) {
+    if (!usbInterface.isClaimed()) {
       usbInterface.claim();
-    }else{
+    } else {
       throw new RuntimeException("Interface already claimed");
     }
 
@@ -50,7 +50,7 @@ public class USBConnector {
     for (Object attachedUsbDevice : device.getAttachedUsbDevices()) {
       UsbDevice usbDevice = (UsbDevice) attachedUsbDevice;
       UsbDeviceDescriptor usbDeviceDescriptor = usbDevice.getUsbDeviceDescriptor();
-      if(usbDeviceDescriptor.idVendor() == 0x04F9 && usbDeviceDescriptor.idProduct() == 0x2042) {
+      if (usbDeviceDescriptor.idVendor() == 0x04F9 && usbDeviceDescriptor.idProduct() == 0x2042) {
         return usbDevice;
       }
       if (usbDevice.isUsbHub()) {
@@ -58,7 +58,7 @@ public class USBConnector {
         for (Object secondLevelUsbDevice : secondLevelHub.getAttachedUsbDevices()) {
           UsbDevice usbDevice1 = (UsbDevice) secondLevelUsbDevice;
           UsbDeviceDescriptor usbDeviceDescriptor1 = usbDevice1.getUsbDeviceDescriptor();
-          if(usbDeviceDescriptor1.idVendor() == 0x04f9 && usbDeviceDescriptor1.idProduct() == 0x2085) {
+          if (usbDeviceDescriptor1.idVendor() == 0x04f9 && usbDeviceDescriptor1.idProduct() == 0x2085) {
             return usbDevice1;
           }
         }
@@ -78,10 +78,10 @@ public class USBConnector {
   public byte[] readData(int timeoutInSeconds, int length) {
     long start = System.currentTimeMillis();
     byte[] data = new byte[length];
-    while(System.currentTimeMillis() - start < timeoutInSeconds * 1000) {
+    while (System.currentTimeMillis() - start < timeoutInSeconds * 1000L) {
       try {
         int bytesRead = inputPipe.syncSubmit(data);
-        if(bytesRead == length) {
+        if (bytesRead == length) {
           return data;
         }
       } catch (UsbException e) {

@@ -13,7 +13,7 @@ public class ByteConverter {
 
    */
 
-  public static String[] convert(byte[] data){
+  public static String[] convert(byte[] data) {
     List<String> result = new ArrayList<>();
     for (byte b : data) {
       result.add(convertByte(b));
@@ -21,9 +21,9 @@ public class ByteConverter {
     return result.toArray(new String[0]);
   }
 
-  private static String convertByte(byte b){
+  private static String convertByte(byte b) {
     String hex = Integer.toHexString(b);
-    if(hex.length() == 1){
+    if (hex.length() == 1) {
       hex = "0" + hex;
     }
     return hex + "h";

@@ -16,7 +16,7 @@ public class StatusConverter {
     };
   }
 
-  public static String convertExtendedError(String error){
+  public static String convertExtendedError(String error) {
     return switch (error) {
       case "1Dh" -> "High resolution/High- speed printing error";
       case "1Eh" -> "Power switching error";
@@ -26,8 +26,8 @@ public class StatusConverter {
     };
   }
 
-  public static String convertRibbonColor(String color){
-    return switch (color){
+  public static String convertRibbonColor(String color) {
+    return switch (color) {
       case "01h" -> "white";
       case "04h" -> "red";
       case "05h" -> "blue";
@@ -42,8 +42,8 @@ public class StatusConverter {
     };
   }
 
-  public static String convertMediaColor(String color){
-    return switch (color){
+  public static String convertMediaColor(String color) {
+    return switch (color) {
       case "01h" -> "White";
       case "02h" -> "Other";
       case "03h" -> "Clear";
@@ -101,7 +101,7 @@ public class StatusConverter {
     };
   }
 
-  public static void printStatus(byte[] data){
+  public static void printStatus(byte[] data) {
     String[] converted = ByteConverter.convert(data);
     Map<String, Object> values = extractValues(converted);
     values.forEach((key, value) -> System.out.println(key + ": " + value));
