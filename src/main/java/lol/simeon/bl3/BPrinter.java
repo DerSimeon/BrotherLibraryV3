@@ -74,4 +74,8 @@ public class BPrinter {
     usbConnector.getOutputPipe().syncSubmit("^FF".getBytes());
   }
 
+  public void shutdown(){
+    usbConnector.shutdown();
+  }
+
 }

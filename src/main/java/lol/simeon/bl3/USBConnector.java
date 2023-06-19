@@ -1,5 +1,7 @@
 package lol.simeon.bl3;
 
+import java.io.IOError;
+import java.io.IOException;
 import javax.usb.UsbDevice;
 import javax.usb.UsbDeviceDescriptor;
 import javax.usb.UsbEndpoint;
@@ -19,17 +21,17 @@ public class USBConnector {
     System.out.println("USBConnector created");
   }
 
-  public void connect() throws UsbException {
+  public void connect() throws UsbException, IOException {
     UsbDevice device = discover();
     if (device == null) {
-      throw new RuntimeException("No printer found");
+      throw new IOException("No printer found");
     }
 
     UsbInterface usbInterface = device.getActiveUsbConfiguration().getUsbInterface((byte) 0);
     if (!usbInterface.isClaimed()) {
       usbInterface.claim();
     } else {
-      throw new RuntimeException("Interface already claimed");
+      throw new IOException("Interface already claimed");
     }
 
     UsbEndpoint inputEndpoint = usbInterface.getUsbEndpoint((byte) 0x81);
@@ -85,9 +87,18 @@ public class USBConnector {
           return data;
         }
       } catch (UsbException e) {
-        throw new RuntimeException(e);
+        e.printStackTrace();
       }
     }
     return data;
+  }
+
+  public void shutdown() {
+    try {
+      inputPipe.close();
+      outputPipe.close();
+    } catch (UsbException e) {
+      e.printStackTrace();
+    }
   }
 }
