@@ -75,6 +75,10 @@ public class BPrinter {
     usbConnector.getOutputPipe().syncSubmit("^FF".getBytes());
   }
 
+  public boolean hasConnected(){
+    return usbConnector.hasConnected();
+  }
+
   public void shutdown(){
     usbConnector.shutdown();
   }

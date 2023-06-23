@@ -101,4 +101,15 @@ public class USBConnector {
       e.printStackTrace();
     }
   }
+
+  public boolean hasConnected() {
+    if (inputPipe == null || outputPipe == null) {
+      return false;
+    }
+    try {
+      return inputPipe.isOpen() && outputPipe.isOpen();
+    } catch (IOError e) {
+      return false;
+    }
+  }
 }
