@@ -7,10 +7,9 @@ import javax.usb.UsbException;
 public class BPrinter {
 
   private static final int ID_ID = 0;
-  private static final int STATUS_ID = 3;
-  private static final int TYPE_ID = 4;
-  private static final int ROOM_ID = 5;
-  private static final int QR_ID = 6;
+  private static final int TYPE_ID = 2;
+  private static final int ROOM_ID = 3;
+  private static final int QR_ID = 4;
   private final USBConnector usbConnector;
 
   public BPrinter() {
@@ -22,7 +21,7 @@ public class BPrinter {
     }
   }
 
-  public void printTemplate(String FurnitureType, String room, String id, String state) {
+  public void printTemplate(String FurnitureType, String room, String id) {
     try {
       initializePrinter();
       setDelimiter(",");
@@ -69,7 +68,7 @@ public class BPrinter {
     usbConnector.getOutputPipe().syncSubmit(("^SS01" + delimiter).getBytes());
   }
 
-  private void print() throws UsbException {
+  public void print() throws UsbException {
     usbConnector.getOutputPipe().syncSubmit("^FF".getBytes());
   }
 
