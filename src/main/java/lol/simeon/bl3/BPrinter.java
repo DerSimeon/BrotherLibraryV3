@@ -29,8 +29,6 @@ public class BPrinter {
       for (int i = 0; i <= 7; i++) {
         if (i == ID_ID) {
           sendValueWithDelimiter(id);
-        } else if (i == STATUS_ID) {
-          sendValueWithDelimiter(state);
         } else if (i == TYPE_ID) {
           sendValueWithDelimiter(FurnitureType);
         } else if (i == ROOM_ID) {
@@ -75,11 +73,11 @@ public class BPrinter {
     usbConnector.getOutputPipe().syncSubmit("^FF".getBytes());
   }
 
-  public boolean hasConnected(){
+  public boolean hasConnected() {
     return usbConnector.hasConnected();
   }
 
-  public void shutdown(){
+  public void shutdown() {
     usbConnector.shutdown();
   }
 
